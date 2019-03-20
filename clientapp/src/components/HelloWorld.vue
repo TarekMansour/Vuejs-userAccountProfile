@@ -1,147 +1,155 @@
 <template>
-  <v-container>
-    <v-layout
-      text-xs-center
-      wrap
-    >
-      <v-flex xs12>
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        ></v-img>
-      </v-flex>
+  <div class="mt-5 pt-5">
+    <v-flex xs12 sm8 md6 lg4>
+      <v-card class="mx-1 pa-1 mb-4">
+        <div class="profile">
+          <div class="name">
+            <div class="customLabel">{{userFullName}}</div>
+            <div class="userEmail">{{userEmail}}</div>
+          </div>
+          <div>
+            <img :src="image_url" class="profileImage">
+          </div>
+        </div>
 
-      <v-flex mb-4>
-        <h1 class="display-2 font-weight-bold mb-3">
-          Welcome to Vuetify
-        </h1>
-        <p class="subheading font-weight-regular">
-          For help and collaboration with other Vuetify developers,
-          <br>please join our online
-          <a href="https://community.vuetifyjs.com" target="_blank">Discord Community</a>
-        </p>
-      </v-flex>
+        <div class="position">{{position}}</div>
 
-      <v-flex
-        mb-5
-        xs12
-      >
-        <h2 class="headline font-weight-bold mb-3">What's next?</h2>
+        <!-- <h3>Statstics :</h3> -->
+        <div class="location">
+          <v-icon class="icon">place</v-icon>
+          <div class="info_text">{{location}}</div>
+        </div>
 
-        <v-layout justify-center>
-          <a
-            v-for="(next, i) in whatsNext"
-            :key="i"
-            :href="next.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ next.text }}
-          </a>
-        </v-layout>
-      </v-flex>
+        <div class="article">
+          <v-icon class="icon">class</v-icon>
+          <div class="info_text">{{public_article}} TechShare article(s)</div>
+        </div>
 
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Important Links</h2>
+        <div class="comment">
+          <v-icon class="icon">comment</v-icon>
+          <div class="info_text">{{comment}} comment(s)</div>
+        </div>
 
-        <v-layout justify-center>
-          <a
-            v-for="(link, i) in importantLinks"
-            :key="i"
-            :href="link.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ link.text }}
-          </a>
-        </v-layout>
-      </v-flex>
+        <div class="seenArticle">
+          <v-icon class="icon">visibility</v-icon>
+          <div class="info_text">{{seenArticle}} seen article(s)</div>
+        </div>
+        
+        <div class="pointofinterst">Point of interest:</div>
+        <div>
+          <v-form v-model="valid" ref="form">
+            <v-layout row wrap>
+              <v-flex xs2 v-for="option in pointOfInterest" :key="option.text">{{option.text}}</v-flex>
+            </v-layout>
+          </v-form>
 
-      <v-flex
-        xs12
-        mb-5
-      >
-        <h2 class="headline font-weight-bold mb-3">Ecosystem</h2>
-
-        <v-layout justify-center>
-          <a
-            v-for="(eco, i) in ecosystem"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-        </v-layout>
-      </v-flex>
-    </v-layout>
-  </v-container>
+          <a v-bind:href="'https://techshare.o2f-it.com/post/'+ articleID">Here's an article you might want to read</a>
+        </div>
+      </v-card>
+    </v-flex>
+  </div>
 </template>
 
-<script>
-  export default {
-    data: () => ({
-      ecosystem: [
-        {
-          text: 'vuetify-loader',
-          href: 'https://github.com/vuetifyjs/vuetify-loader'
-        },
-        {
-          text: 'github',
-          href: 'https://github.com/vuetifyjs/vuetify'
-        },
-        {
-          text: 'awesome-vuetify',
-          href: 'https://github.com/vuetifyjs/awesome-vuetify'
-        }
-      ],
-      importantLinks: [
-        {
-          text: 'Documentation',
-          href: 'https://vuetifyjs.com'
-        },
-        {
-          text: 'Chat',
-          href: 'https://community.vuetifyjs.com'
-        },
-        {
-          text: 'Made with Vuetify',
-          href: 'https://madewithvuetifyjs.com'
-        },
-        {
-          text: 'Twitter',
-          href: 'https://twitter.com/vuetifyjs'
-        },
-        {
-          text: 'Articles',
-          href: 'https://medium.com/vuetify'
-        }
-      ],
-      whatsNext: [
-        {
-          text: 'Explore components',
-          href: 'https://vuetifyjs.com/components/api-explorer'
-        },
-        {
-          text: 'Select a layout',
-          href: 'https://vuetifyjs.com/layout/pre-defined'
-        },
-        {
-          text: 'Frequently Asked Questions',
-          href: 'https://vuetifyjs.com/getting-started/frequently-asked-questions'
-        }
 
-      ]
-    })
-  }
+<script>
+export default {
+  data: () => ({
+    name: "",
+    userFullName: "UserFullName",
+    userEmail: "user@amaris.com",
+    image_url:
+      "http://greenwings.co/wp-content/uploads/2018/09/blank-head-profile-pic-for-a-man.jpg",
+    position: "user position (e.g Software Developer)",
+    public_article: "0",
+    location: "Amaris Hub/Country (e.g AmaTUN)",
+    comment: "0",
+    seenArticle: "0",
+    articleID: "5c331b070920090001a42884",
+    pointOfInterest: [
+      { text: ".Net", value: "dotNet" },
+      { text: "ARP", value: "arp" },
+      { text: "SQL", value: "sql" },
+      { text: "CI/CD", value: "cicd" }
+    ]
+  })
+};
 </script>
 
-<style>
+<style scoped>
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.name {
+  display: flex;
+  flex-direction: column;
+}
+
+.customLabel {
+  width: 15rem;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.25rem 0;
+}
+
+.userEmail {
+  padding: 1rem 0;
+  font-weight: 200;
+  font-size: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.25rem 0;
+}
+
+.profileImage {
+  width: 5rem;
+}
+
+.position {
+  padding: 1rem 0;
+  font-weight: 300;
+  font-size: 1.60rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.25rem 0;
+}
+
+.location,
+.article,
+.comment,
+.seenArticle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.pointofinterst {
+  color: orangered;
+  padding: 1rem 3;
+  font-weight: 400;
+  font-size: 1.60rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.9rem 0;
+}
+
+.icon {
+  padding: 0 2rem 0 1rem;
+  font-size: 2rem;
+}
+
+.info_text {
+  font-size: 1.25rem;
+  font-weight: 400;
+}
 </style>
